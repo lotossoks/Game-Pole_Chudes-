@@ -1,17 +1,19 @@
 all_words = set()
 all_words = {'фигура', 'афроамереканцы', 'геометрия', 'информатика', 'высота','иллюминация', 'собака', 'череп', 'дрозд', 'солнце'} # Все слова
-win = False #Флаг победы
-lose = True
+win = None #Флаг победы
+count = 0 #Кол-во ходов
+all_words = set()
+all_words = {'фигура', 'афроамереканцы', 'геометрия', 'информатика', 'высота','иллюминация', 'собака', 'череп', 'дрозд', 'солнце'} # Все слова
+win = None #Флаг победы
 count = 0 #Кол-во ходов
 word = list(all_words.pop()) # Выбор рандомного слова
 lword = list("*" * len(word)) #Создание шаблона для финального слова
 used = [] #Список для использованых
 unused = set() #Список для не использованных
 
-for i in range(1, 32 + 1): #Добавление всех букв в set 
+for i in range(0, 33): #Добавление всех букв в set 
     unused.add(chr(ord("а") + i))
 unused.add("ё")
-unused.add("а")
 letters = unused
 
 print("Добрый день! Вы играете в ПОЛЕ ЧУДЕС!" "\n" "Удачи!" "\n" "В загаданных словах все буквы маленькие!" "\n" "если вам нужна помошь пишите 'Помощь'")
@@ -32,11 +34,9 @@ while not win: #Бесконечный цикл
             a = list(input().lower())
             if a == word:
                 win = True
-                lose = False
                 break
             else:
                 win = False
-                lose = True
                 break
         elif a == "нет": #Возвращение в основной цикл
             print("Введите букву: \n")
@@ -52,7 +52,6 @@ while not win: #Бесконечный цикл
             print("Вот ваши использованные буквы:\n" " ".join(used))
     elif a == "!3":
         win = False
-        lose = True
     elif a == "!4":
         print("Введите букву:\n")
         count += 1
@@ -80,11 +79,10 @@ while not win: #Бесконечный цикл
     
     if "*" not in lword: #Проверка на победу.
         win = True
-        lose = False
     
 
-if win and not lose:
+if win:
     print("Позравляю! Вы выйграли!", "\n", "Ходов было затрачено:", count, "\n")
 else:
-    print(a)
+    print("Загаданное слово было:", "".join(word))
     print("Увы, но вы проиграли." "\n" "Спасибо за игру!")
